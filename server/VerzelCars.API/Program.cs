@@ -1,5 +1,9 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using VerzelCars.API.Contexts;
+using VerzelCars.API.Contracts.Authentication;
+using VerzelCars.API.Services.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+// FluentValidation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidation>();
+
+// Context
 builder.Services.AddDbContext<VerzelCarsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
