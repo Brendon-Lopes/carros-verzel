@@ -81,6 +81,7 @@ public class CarRepository : ICarRepository
         findCar.Year = car.Year;
         findCar.Price = car.Price;
         findCar.ImageUrl = car.ImageUrl;
+        findCar.UpdatedAt = DateTime.UtcNow;
 
         _context.Cars.Update(findCar);
 
