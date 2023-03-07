@@ -7,4 +7,5 @@ public interface IBrandRepository
 {
     Task<Brand> Create(CreateBrandRequest brand);
     Task<Brand?> FindBrandByName(string name);
+    Task<ICollection<Brand>> FindAll();
 }

@@ -28,6 +28,11 @@ public class BrandRepository : IBrandRepository
         return created.Entity;
     }
 
+    public async Task<ICollection<Brand>> FindAll()
+    {
+        return await _context.Brands.ToListAsync();
+    }
+
     public async Task<Brand?> FindBrandByName(string name)
     {
         return await _context.Brands.FirstOrDefaultAsync(b => b.Name == name);

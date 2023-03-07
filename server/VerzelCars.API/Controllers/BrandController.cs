@@ -29,4 +29,13 @@ public class BrandController : ControllerBase
 
         return CreatedAtAction(null, new CreateBrandResponse(created.BrandId, created.Name));
     }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IActionResult> FindAll()
+    {
+        var brands = await _brandRepository.FindAll();
+
+        return Ok(brands.Select(b => new FindAllBrandResponse(b.BrandId, b.Name)));
+    }
 }
