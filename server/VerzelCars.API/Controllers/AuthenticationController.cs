@@ -22,18 +22,18 @@ public class AuthenticationController : ControllerBase
 
         if (findEmail != null) return Conflict(new { error = "Email already exists" });
 
-        var token = await _userRepository.CreateUser(user);
+        var response = await _userRepository.CreateUser(user);
 
-        return CreatedAtAction(null, new CreateUserResponse(user, token));
+        return CreatedAtAction(null, response);
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginUserRequest user)
     {
-        var loginResponse = await _userRepository.LoginUser(user);
+        var response = await _userRepository.LoginUser(user);
 
-        if (loginResponse == null) return BadRequest(new { error = "Invalid email or password" });
+        if (response == null) return BadRequest(new { error = "Invalid email or password" });
 
-        return Ok(loginResponse);
+        return Ok(response);
     }
 }

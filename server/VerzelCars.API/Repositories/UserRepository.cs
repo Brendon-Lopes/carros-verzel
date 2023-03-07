@@ -24,7 +24,7 @@ public class UserRepository : IUserRepository
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 
-    public async Task<string> CreateUser(CreateUserRequest user)
+    public async Task<CreateUserResponse> CreateUser(CreateUserRequest user)
     {
         var newUser = new User
         {
@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
 
         await _context.SaveChangesAsync();
 
-        return token;
+        return new CreateUserResponse(newUser, token);
     }
 
     public async Task<LoginUserResponse?> LoginUser(LoginUserRequest user)
