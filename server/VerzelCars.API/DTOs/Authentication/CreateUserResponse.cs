@@ -2,10 +2,11 @@ namespace VerzelCars.API.DTOs.Authentication;
 
 public class CreateUserResponse
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public string Email { get; set; }
-    public string Token { get; set; }
+    public string FirstName { get; }
+    public string LastName { get; }
+    public string Email { get; }
+    public string Role { get; } = "customer";
+    public string Token { get; }
 
     public CreateUserResponse(CreateUserRequest user, string token)
     {
