@@ -24,6 +24,6 @@ public class AuthenticationController : ControllerBase
 
         var token = await _userRepository.CreateUser(user);
 
-        return Ok(new CreateUserResponse(user, token));
+        return CreatedAtAction(null, new CreateUserResponse(user, token));
     }
 }
