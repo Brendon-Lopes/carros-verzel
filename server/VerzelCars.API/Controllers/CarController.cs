@@ -31,11 +31,13 @@ public class CarController : ControllerBase
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> FindAll(
-        [FromQuery] string? order = "asc",
         [FromQuery] int page = 1,
-        [FromQuery] int pageSize = 9)
+        [FromQuery] int pageSize = 9,
+        [FromQuery] string? order = "asc",
+        [FromQuery] string? name = "",
+        [FromQuery] string? brandName = "")
     {
-        var cars = await _carRepository.FindAll(page, pageSize, order!);
+        var cars = await _carRepository.FindAll(page, pageSize, order!, name!, brandName!);
 
         return Ok(cars);
     }

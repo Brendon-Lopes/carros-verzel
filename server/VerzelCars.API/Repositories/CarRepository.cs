@@ -37,38 +37,37 @@ public class CarRepository : ICarRepository
         return new CreateCarResponse(created.Entity);
     }
 
-    public async Task<FindAllCarsResponse> FindAll(int page, int pageSize, string order)
+    public async Task<FindAllCarsResponse> FindAll(
+        int page,
+        int pageSize,
+        string order,
+        string name,
+        string brandName)
     {
-        var totalCars = await _context.Cars.CountAsync();
+        var nameLowerCase = name.ToLower();
+        var cars = _context.Cars;
 
-        List<Car>? cars;
+        var orderedCars = order == "asc"
+            ? cars.OrderBy(c => c.Price)
+            : cars.OrderByDescending(c => c.Price);
 
-        if (order == "asc")
-        {
-            cars = await _context.Cars
-                .OrderBy(c => c.Price)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .Include(c => c.Brand)
-                .ToListAsync();
+        var filteredCars = orderedCars
+            .Where(c => c.Name.ToLower().Contains(nameLowerCase)
+                || c.Model.ToLower().Contains(nameLowerCase)
+                || c.Brand.Name.ToLower().Contains(nameLowerCase))
+            .Where(c => brandName != "" ? c.Brand.Name.ToLower() == brandName.ToLower() : true)
+            .Include(c => c.Brand);
 
-            Console.WriteLine("ASC");
-        }
-        else
-        {
-            cars = await _context.Cars
-                .OrderByDescending(c => c.Price)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .Include(c => c.Brand)
-                .ToListAsync();
+        var totalCars = await filteredCars.CountAsync();
 
-            Console.WriteLine("DESC");
-        }
+        var carsWithPagination = await filteredCars
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
 
         var pageCount = (int)Math.Ceiling((double)totalCars / pageSize);
 
-        return new FindAllCarsResponse(cars, page, pageCount);
+        return new FindAllCarsResponse(carsWithPagination, page, pageCount);
     }
 
     public async Task<Car?> Update(UpdateCarRequest car, Guid id)
