@@ -23,5 +23,7 @@ public class VerzelCarsContext : DbContext
         modelBuilder.Entity<Car>().Property(c => c.UpdatedAt).HasDefaultValueSql("GETDATE()");
 
         modelBuilder.Entity<Car>().Property(c => c.Price).HasColumnType("decimal(18,2)");
+
+        modelBuilder.Entity<Brand>().HasIndex(b => b.Name).IsUnique();
     }
 }
