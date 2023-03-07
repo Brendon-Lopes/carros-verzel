@@ -1,5 +1,5 @@
 using FluentValidation;
-using VerzelCars.API.Contracts.Authentication;
+using VerzelCars.API.DTOs.Authentication;
 
 namespace VerzelCars.API.Services.Validations;
 
