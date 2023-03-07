@@ -1,4 +1,4 @@
-namespace VerzelCars.API.Contracts.Authentication;
+namespace VerzelCars.API.DTOs.Authentication;
 
 public record CreateUserRequest(
     string FirstName,
