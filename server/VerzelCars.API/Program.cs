@@ -9,6 +9,7 @@ using VerzelCars.API.Contexts;
 using VerzelCars.API.Repositories;
 using VerzelCars.API.Services.Authentication;
 using VerzelCars.API.Services.Validations;
+using VerzelCars.API.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +20,14 @@ builder.Services.AddControllers();
 // FluentValidation
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidation>();
+builder.Services.AddValidatorsFromAssemblyContaining<LoginValidation>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBrandValidation>();
 
 // Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+
 builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
 builder.Services.AddScoped<IPasswordHandler, PasswordHandler>();
 
@@ -56,6 +62,11 @@ builder.Services.AddAuthentication(options =>
         RequireExpirationTime = false, // for dev
         ValidateLifetime = true
     };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(AuthorizationPolicies.RequireAdminRole, policy => policy.RequireRole("admin"));
 });
 
 
