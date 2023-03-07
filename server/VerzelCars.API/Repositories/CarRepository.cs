@@ -36,11 +36,18 @@ public class CarRepository : ICarRepository
         return new CreateCarResponse(created.Entity);
     }
 
-    // public async Task<ICollection<Car>> FindAll(int page, int pageSize)
-    // {
-    //     return await _context.Cars
-    //         .Skip((page - 1) * pageSize)
-    //         .Take(pageSize)
-    //         .ToListAsync();
-    // }
+    public async Task<FindAllCarsResponse> FindAll(int page, int pageSize)
+    {
+        var totalCars = await _context.Cars.CountAsync();
+
+        var cars = await _context.Cars
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .Include(c => c.Brand)
+            .ToListAsync();
+
+        var pageCount = (int)Math.Ceiling((double)totalCars / pageSize);
+
+        return new FindAllCarsResponse(cars, page, pageCount);
+    }
 }

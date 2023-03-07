@@ -27,4 +27,13 @@ public class CarController : ControllerBase
 
         return CreatedAtAction(null, created);
     }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IActionResult> FindAll([FromQuery] int page = 1, [FromQuery] int pageSize = 9)
+    {
+        var cars = await _carRepository.FindAll(page, pageSize);
+
+        return Ok(cars);
+    }
 }
