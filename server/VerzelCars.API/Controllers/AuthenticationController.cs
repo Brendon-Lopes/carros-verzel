@@ -26,4 +26,14 @@ public class AuthenticationController : ControllerBase
 
         return CreatedAtAction(null, new CreateUserResponse(user, token));
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginUserRequest user)
+    {
+        var loginResponse = await _userRepository.LoginUser(user);
+
+        if (loginResponse == null) return BadRequest(new { error = "Invalid email or password" });
+
+        return Ok(loginResponse);
+    }
 }

@@ -43,4 +43,19 @@ public class UserRepository : IUserRepository
 
         return token;
     }
+
+    public async Task<LoginUserResponse?> LoginUser(LoginUserRequest user)
+    {
+        var findUser = await FindUserByEmail(user.Email);
+
+        if (findUser == null) return null;
+
+        var isCorrect = _passwordHandler.VerifyPassword(user.Password, findUser.Password);
+
+        if (!isCorrect) return null;
+
+        var token = _jwtGenerator.CreateToken(findUser);
+
+        return new LoginUserResponse(findUser, token);
+    }
 }

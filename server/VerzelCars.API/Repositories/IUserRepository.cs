@@ -6,5 +6,6 @@ namespace VerzelCars.API.Repositories;
 public interface IUserRepository
 {
     Task<string> CreateUser(CreateUserRequest user);
+    Task<LoginUserResponse?> LoginUser(LoginUserRequest user);
     Task<User?> FindUserByEmail(string email);
 }
