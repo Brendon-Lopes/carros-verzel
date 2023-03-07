@@ -10,6 +10,7 @@ using VerzelCars.API.Repositories;
 using VerzelCars.API.Services.Authentication;
 using VerzelCars.API.Services.Validations;
 using VerzelCars.API.Utils;
+using VerzelCars.API.Utils.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,7 +72,6 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(AuthorizationPolicies.RequireAdminRole, policy => policy.RequireRole("admin"));
 });
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,6 +79,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    {
+        using var scope = app.Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<VerzelCarsContext>();
+
+        // database seeding for development
+        var seeder = new Seeder(context);
+        seeder.Execute();
+    }
 }
 
 app.UseHttpsRedirection();
