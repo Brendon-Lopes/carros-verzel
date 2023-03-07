@@ -17,6 +17,7 @@ public class VerzelCarsContext : DbContext
     {
         modelBuilder.Entity<User>().Property(u => u.CreatedAt).HasDefaultValueSql("GETDATE()");
         modelBuilder.Entity<User>().Property(u => u.UpdatedAt).HasDefaultValueSql("GETDATE()");
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
         modelBuilder.Entity<Car>().Property(c => c.CreatedAt).HasDefaultValueSql("GETDATE()");
         modelBuilder.Entity<Car>().Property(c => c.UpdatedAt).HasDefaultValueSql("GETDATE()");
