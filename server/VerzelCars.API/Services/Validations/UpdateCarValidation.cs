@@ -3,9 +3,9 @@ using VerzelCars.API.DTOs.Car;
 
 namespace VerzelCars.API.Services.Validations;
 
-public class CreateCarValidation : AbstractValidator<CreateCarRequest>
+public class UpdateCarValidation : AbstractValidator<UpdateCarRequest>
 {
-    public CreateCarValidation()
+    public UpdateCarValidation()
     {
         RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required")
             .Length(2, 50).WithMessage("Name must be between 2 and 50 characters");
@@ -19,7 +19,5 @@ public class CreateCarValidation : AbstractValidator<CreateCarRequest>
             .GreaterThan(0).WithMessage("Price must be greater than 0");
 
         RuleFor(x => x.ImageUrl).NotEmpty().WithMessage("ImageUrl is required");
-
-        RuleFor(x => x.BrandId).NotEmpty().WithMessage("BrandId is required");
     }
 }

@@ -50,4 +50,23 @@ public class CarRepository : ICarRepository
 
         return new FindAllCarsResponse(cars, page, pageCount);
     }
+
+    public async Task<Car?> Update(UpdateCarRequest car, Guid id)
+    {
+        var findCar = _context.Cars.FirstOrDefault(c => c.CarId == id);
+
+        if (findCar == null) return null;
+
+        findCar.Name = car.Name;
+        findCar.Model = car.Model;
+        findCar.Year = car.Year;
+        findCar.Price = car.Price;
+        findCar.ImageUrl = car.ImageUrl;
+
+        _context.Cars.Update(findCar);
+
+        await _context.SaveChangesAsync();
+
+        return findCar;
+    }
 }

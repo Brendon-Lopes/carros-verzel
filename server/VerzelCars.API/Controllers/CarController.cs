@@ -36,4 +36,14 @@ public class CarController : ControllerBase
 
         return Ok(cars);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update([FromBody] UpdateCarRequest car, [FromRoute] Guid id)
+    {
+        var updated = await _carRepository.Update(car, id);
+
+        if (updated == null) return BadRequest(new { error = "Car not found" });
+
+        return NoContent();
+    }
 }

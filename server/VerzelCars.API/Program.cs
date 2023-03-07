@@ -23,6 +23,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<LoginValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateBrandValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateCarValidation>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateCarValidation>();
 
 // Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
