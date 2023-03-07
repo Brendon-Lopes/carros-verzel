@@ -49,4 +49,14 @@ public class CarController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        var deleted = await _carRepository.Delete(id);
+
+        if (deleted == null) return NotFound(new { error = "Car not found" });
+
+        return NoContent();
+    }
 }

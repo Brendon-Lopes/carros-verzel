@@ -89,4 +89,17 @@ public class CarRepository : ICarRepository
 
         return findCar;
     }
+
+    public async Task<Car?> Delete(Guid id)
+    {
+        var findCar = _context.Cars.FirstOrDefault(c => c.CarId == id);
+
+        if (findCar == null) return null;
+
+        var removed = _context.Cars.Remove(findCar);
+
+        await _context.SaveChangesAsync();
+
+        return removed.Entity;
+    }
 }
