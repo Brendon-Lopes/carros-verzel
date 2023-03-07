@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VerzelCars.API.Contexts;
 
@@ -11,9 +12,10 @@ using VerzelCars.API.Contexts;
 namespace VerzelCars.API.Migrations
 {
     [DbContext(typeof(VerzelCarsContext))]
-    partial class VerzelCarsContextModelSnapshot : ModelSnapshot
+    [Migration("20230306221601_AddUniqueConstraintToUserEmail")]
+    partial class AddUniqueConstraintToUserEmail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
