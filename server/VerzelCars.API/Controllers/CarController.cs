@@ -30,9 +30,12 @@ public class CarController : ControllerBase
 
     [HttpGet]
     [AllowAnonymous]
-    public async Task<IActionResult> FindAll([FromQuery] int page = 1, [FromQuery] int pageSize = 9)
+    public async Task<IActionResult> FindAll(
+        [FromQuery] string? order = "asc",
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 9)
     {
-        var cars = await _carRepository.FindAll(page, pageSize);
+        var cars = await _carRepository.FindAll(page, pageSize, order!);
 
         return Ok(cars);
     }

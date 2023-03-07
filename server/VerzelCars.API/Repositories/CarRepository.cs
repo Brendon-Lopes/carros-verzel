@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using VerzelCars.API.Contexts;
 using VerzelCars.API.DTOs.Car;
@@ -36,15 +37,34 @@ public class CarRepository : ICarRepository
         return new CreateCarResponse(created.Entity);
     }
 
-    public async Task<FindAllCarsResponse> FindAll(int page, int pageSize)
+    public async Task<FindAllCarsResponse> FindAll(int page, int pageSize, string order)
     {
         var totalCars = await _context.Cars.CountAsync();
 
-        var cars = await _context.Cars
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
-            .Include(c => c.Brand)
-            .ToListAsync();
+        List<Car>? cars;
+
+        if (order == "asc")
+        {
+            cars = await _context.Cars
+                .OrderBy(c => c.Price)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Include(c => c.Brand)
+                .ToListAsync();
+
+            Console.WriteLine("ASC");
+        }
+        else
+        {
+            cars = await _context.Cars
+                .OrderByDescending(c => c.Price)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Include(c => c.Brand)
+                .ToListAsync();
+
+            Console.WriteLine("DESC");
+        }
 
         var pageCount = (int)Math.Ceiling((double)totalCars / pageSize);
 

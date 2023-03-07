@@ -6,7 +6,7 @@ namespace VerzelCars.API.Repositories;
 public interface ICarRepository
 {
     Task<CreateCarResponse?> Create(CreateCarRequest car);
-    Task<FindAllCarsResponse> FindAll(int page, int pageSize);
+    Task<FindAllCarsResponse> FindAll(int page, int pageSize, string order);
     Task<Car?> Update(UpdateCarRequest car, Guid id);
 }
 
