@@ -6,7 +6,7 @@ namespace VerzelCars.API.Models;
 public class Car
 {
     [Key]
-    public Guid CarId { get; set; }
+    public Guid CarId { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = null!;
     public string Model { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;
