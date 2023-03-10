@@ -17,7 +17,7 @@ export function Home() {
       <NavBar />
       <SearchBar />
 
-      <main className='max-w-7xl m-auto grid grid-cols-2 md:grid-cols-3'>
+      <main className='max-w-7xl m-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {cars.length > 0 &&
           cars.map((car) => <CarCard key={car.carId} car={car} />)}
       </main>
