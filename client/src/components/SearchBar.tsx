@@ -18,7 +18,7 @@ export function SearchBar({ onSearch }: IProps) {
   }
 
   return (
-    <div className='bg-blue-600 h-16 flex justify-center items-center px-4 mb-6'>
+    <div className='bg-blue-600 h-16 flex justify-center items-center px-4'>
       <div className='relative max-w-7xl h-4/6 w-full flex items-center'>
         <form onSubmit={onFormSubmit} className='w-full h-full'>
           <input
