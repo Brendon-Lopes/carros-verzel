@@ -17,9 +17,10 @@ export function Home() {
       <NavBar />
       <SearchBar />
 
-      <main className='max-w-7xl m-auto bg-red-700'></main>
-      {cars.length > 0 &&
-        cars.map((car) => <CarCard key={car.carId} car={car} />)}
+      <main className='max-w-7xl m-auto grid grid-cols-3 gap-y-6'>
+        {cars.length > 0 &&
+          cars.map((car) => <CarCard key={car.carId} car={car} />)}
+      </main>
     </div>
   )
 }
