@@ -2,7 +2,7 @@ import { BsSearch } from 'react-icons/bs'
 
 export function SearchBar() {
   return (
-    <div className='bg-blue-600 h-16 flex justify-center items-center'>
+    <div className='bg-blue-600 h-16 flex justify-center items-center px-4'>
       <div className='relative max-w-7xl h-4/6 w-full flex items-center'>
         <input
           className='rounded-sm p-2 w-full h-full'
