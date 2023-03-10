@@ -5,7 +5,11 @@ export function NavBar() {
   return (
     <nav className='flex justify-center h-20 bg-slate-100 drop-shadow-md'>
       <div className='w-full max-w-7xl flex justify-between items-center text-gray-700'>
-        <h1 className='hover:text-black transition-all'>Verzel Cars</h1>
+        <NavLink to={'/'}>
+          <h1 className='hover:text-black transition-all text-lg'>
+            Verzel Cars
+          </h1>
+        </NavLink>
 
         <NavLink to={'/login'}>
           <button
