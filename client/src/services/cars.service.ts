@@ -13,7 +13,7 @@ export const getAllCars = async ({
   order = 'desc',
   brandName = '',
   page = 1,
-  pageSize = 8,
+  pageSize = 9,
 }: IOptions = {}) => {
   let params: IOptions = { order, page, pageSize }
 
