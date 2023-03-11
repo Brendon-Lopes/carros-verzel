@@ -3,9 +3,12 @@ import { useForm } from 'react-hook-form'
 import { type ILoginFormData, loginResolver } from '../validations'
 import * as loginService from '../services/login.service'
 import { useState } from 'react'
+import { useCookies } from 'react-cookie'
 
 export function Login() {
   const [invalidCredentials, setInvalidCredentials] = useState(false)
+
+  const [, setCookies] = useCookies(['token', 'userFirstName'])
 
   const formMethods = useForm<ILoginFormData>({ resolver: loginResolver })
 
@@ -16,8 +19,6 @@ export function Login() {
   } = formMethods
 
   const onLogin = (data: ILoginFormData) => {
-    console.log('login')
-    console.log(data)
     void loginService.login(data.email, data.password).then((res) => {
       if (res === false) {
         setInvalidCredentials(true)
@@ -25,8 +26,9 @@ export function Login() {
       }
 
       if (res !== false) {
-        console.log('login efetuado com sucesso')
         setInvalidCredentials(false)
+        setCookies('token', res.token, { path: '/' })
+        setCookies('userFirstName', res.firstName, { path: '/' })
       }
     })
   }
