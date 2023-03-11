@@ -1,7 +1,19 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { RiAdminLine } from 'react-icons/ri'
+import { useCookies } from 'react-cookie'
+import { BiLogOutCircle } from 'react-icons/bi'
 
 export function NavBar() {
+  const navigate = useNavigate()
+
+  const [cookies, , removeCookie] = useCookies(['token', 'userFirstName'])
+
+  const onLogout = () => {
+    removeCookie('token', { path: '/' })
+    removeCookie('userFirstName', { path: '/' })
+    navigate('/')
+  }
+
   return (
     <nav className='flex justify-center h-20 bg-slate-100 drop-shadow-md px-4'>
       <div className='w-full max-w-7xl flex justify-between items-center text-gray-700'>
@@ -11,17 +23,25 @@ export function NavBar() {
           </h1>
         </NavLink>
 
-        <NavLink to={'/login'}>
-          <button
-            className='hover:text-black transition-all flex items-center gap-2 text-lg'
-            onClick={() => {
-              console.log('Login')
-            }}
-          >
-            <RiAdminLine />
-            Login
-          </button>
-        </NavLink>
+        {cookies.token !== undefined ? (
+          <div className='flex items-center justify-between gap-8'>
+            <p className='text-lg'>{cookies.userFirstName}</p>
+            <button
+              onClick={onLogout}
+              className='hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed'
+            >
+              <BiLogOutCircle />
+              Logout
+            </button>
+          </div>
+        ) : (
+          <NavLink to={'/login'}>
+            <button className='hover:text-black transition-all flex items-center gap-2 text-lg'>
+              <RiAdminLine />
+              Login
+            </button>
+          </NavLink>
+        )}
       </div>
     </nav>
   )
