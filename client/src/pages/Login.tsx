@@ -11,7 +11,7 @@ export function Login() {
 
   const [invalidCredentials, setInvalidCredentials] = useState(false)
 
-  const [, setCookies] = useCookies(['token', 'userFirstName'])
+  const [, setCookies] = useCookies(['token', 'userFirstName', 'role'])
 
   const formMethods = useForm<ILoginFormData>({ resolver: loginResolver })
 
@@ -32,6 +32,7 @@ export function Login() {
         setInvalidCredentials(false)
         setCookies('token', res.token, { path: '/' })
         setCookies('userFirstName', res.firstName, { path: '/' })
+        setCookies('role', res.role, { path: '/' })
         navigate('/')
       }
     })
