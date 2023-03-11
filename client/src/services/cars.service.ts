@@ -54,3 +54,17 @@ export const createCar = async (car: ICreateCarFormData, token: string) => {
     return false
   }
 }
+
+export const deleteCar = async (carId: string, token: string) => {
+  try {
+    const { data } = await api.delete(`/cars/${carId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return data
+  } catch (err) {
+    return false
+  }
+}
