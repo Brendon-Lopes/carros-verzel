@@ -4,8 +4,11 @@ import { type ILoginFormData, loginResolver } from '../validations'
 import * as loginService from '../services/login.service'
 import { useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 
 export function Login() {
+  const navigate = useNavigate()
+
   const [invalidCredentials, setInvalidCredentials] = useState(false)
 
   const [, setCookies] = useCookies(['token', 'userFirstName'])
@@ -29,6 +32,7 @@ export function Login() {
         setInvalidCredentials(false)
         setCookies('token', res.token, { path: '/' })
         setCookies('userFirstName', res.firstName, { path: '/' })
+        navigate('/')
       }
     })
   }
