@@ -1,7 +1,8 @@
 import { type ICar } from '../interfaces'
 import { formatPrice } from '../utils'
 import { useCookies } from 'react-cookie'
-import { BsFillTrashFill } from 'react-icons/bs'
+import { BsFillTrashFill, BsFillPencilFill } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
 
 interface IProps {
   car: ICar
@@ -11,15 +12,27 @@ interface IProps {
 export function CarCard({ car, onCarDelete }: IProps) {
   const [cookies] = useCookies(['token', 'role'])
 
+  const navigate = useNavigate()
+
+  const onCarEdit = () => {
+    navigate('/edit-car', { state: { car, editMode: true } })
+  }
+
   return (
     <div className='w-full p-4 relative'>
       {cookies.role === 'admin' && (
-        <BsFillTrashFill
-          onClick={() => {
-            onCarDelete(car.carId)
-          }}
-          className='absolute text-2xl text-red-600 bottom-9 right-9 hover:cursor-pointer hover:scale-125 transition-all'
-        />
+        <>
+          <BsFillPencilFill
+            onClick={onCarEdit}
+            className='absolute text-2xl text-gray-900 bottom-9 right-20 hover:cursor-pointer hover:scale-125 transition-all'
+          />
+          <BsFillTrashFill
+            onClick={() => {
+              onCarDelete(car.carId)
+            }}
+            className='absolute text-2xl text-red-600 bottom-9 right-9 hover:cursor-pointer hover:scale-125 transition-all'
+          />
+        </>
       )}
 
       <div className='h-full bg-white rounded-lg shadow-md hover:shadow-lg hover:cursor-pointer'>
