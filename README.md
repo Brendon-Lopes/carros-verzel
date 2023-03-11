@@ -55,3 +55,25 @@ admin@mail.com
 ```bash
 123456
 ```
+
+# Como executar os testes
+
+## Backend:
+
+Entrar na pasta do projeto:
+
+```bash
+cd server
+```
+
+Executar os testes:
+
+```bash
+dotnet test
+```
+
+No linux pode ser necessário adicionar um parâmetro para que os testes sejam executados:
+
+```bash
+dotnet test --runtime linux-x64
+```
