@@ -25,7 +25,7 @@ export function NavBar() {
 
         {cookies.token !== undefined ? (
           <div className='flex items-center justify-between gap-8'>
-            <p className='text-lg'>{cookies.userFirstName}</p>
+            <p className='text-lg'>Olá, {cookies.userFirstName}.</p>
             <button
               onClick={onLogout}
               className='hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed'
