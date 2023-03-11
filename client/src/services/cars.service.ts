@@ -68,3 +68,29 @@ export const deleteCar = async (carId: string, token: string) => {
     return false
   }
 }
+
+export const editCar = async (
+  carId: string,
+  car: ICreateCarFormData,
+  token: string
+) => {
+  const payload = {
+    name: car.name,
+    model: car.model,
+    year: car.year,
+    price: car.price,
+    imageUrl: car.imageUrl,
+  }
+
+  try {
+    const { data } = await api.put(`/cars/${carId}`, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return data
+  } catch (err) {
+    return false
+  }
+}
