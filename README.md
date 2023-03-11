@@ -14,7 +14,12 @@ Sistema de catálogo de carros a venda. Com o login administrativo é possível 
 
 # Como executar o projeto
 
-## Pré-requisitos: Docker, Docker Compose.
+## Pré-requisitos:
+
+- Docker
+- Docker Compose
+- Git
+- .NET 6.0 (Para rodar os testes)
 
 ## Passo a passo
 
@@ -44,13 +49,13 @@ A documentação da API estará disponível em http://localhost:5000/swagger
 
 ## Login administrativo:
 
-### Email:
+Email:
 
 ```bash
 admin@mail.com
 ```
 
-### Senha:
+Senha:
 
 ```bash
 123456
