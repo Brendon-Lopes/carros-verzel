@@ -19,6 +19,10 @@ export function NavBar() {
     navigate('/')
   }
 
+  const onRegisterClick = () => {
+    navigate('/register-car', { state: { editMode: false } })
+  }
+
   return (
     <nav className='flex justify-center h-20 bg-slate-100 drop-shadow-md px-4'>
       <div className='w-full max-w-7xl flex justify-between items-center text-gray-700'>
@@ -33,11 +37,12 @@ export function NavBar() {
             <p className='mr-4'>Olá, {cookies.userFirstName}.</p>
 
             {cookies.role === 'admin' && (
-              <NavLink to={'/register-car'}>
-                <button className='hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed'>
-                  Adicionar Carro
-                </button>
-              </NavLink>
+              <button
+                onClick={onRegisterClick}
+                className='hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed'
+              >
+                Adicionar Carro
+              </button>
             )}
 
             <button
