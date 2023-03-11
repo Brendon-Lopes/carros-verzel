@@ -6,11 +6,16 @@ import { BiLogOutCircle } from 'react-icons/bi'
 export function NavBar() {
   const navigate = useNavigate()
 
-  const [cookies, , removeCookie] = useCookies(['token', 'userFirstName'])
+  const [cookies, , removeCookie] = useCookies([
+    'token',
+    'userFirstName',
+    'role',
+  ])
 
   const onLogout = () => {
     removeCookie('token', { path: '/' })
     removeCookie('userFirstName', { path: '/' })
+    removeCookie('role', { path: '/' })
     navigate('/')
   }
 
@@ -25,7 +30,16 @@ export function NavBar() {
 
         {cookies.token !== undefined ? (
           <div className='flex items-center justify-between gap-8'>
-            <p className='text-lg'>Olá, {cookies.userFirstName}.</p>
+            <p className='mr-4'>Olá, {cookies.userFirstName}.</p>
+
+            {cookies.role === 'admin' && (
+              <NavLink to={'/register-car'}>
+                <button className='hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed'>
+                  Adicionar Carro
+                </button>
+              </NavLink>
+            )}
+
             <button
               onClick={onLogout}
               className='hover:text-black transition-all flex items-center gap-2 text-lg leading-relaxed'
