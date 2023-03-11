@@ -5,3 +5,7 @@
 :root {
   @apply bg-slate-100;
 }
+
+.error-message {
+  @apply text-red-500 text-sm mt-1;
+}
