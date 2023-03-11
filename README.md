@@ -65,10 +65,12 @@ Senha:
 
 ## Backend:
 
+Obs.: O backend precisa estar rodando para que os testes sejam executados.
+
 Entrar na pasta do projeto:
 
 ```bash
-cd server
+cd server/VerzelCars.Test
 ```
 
 Executar os testes:
