@@ -19,7 +19,7 @@ const createCarSchema = yup.object({
       if (val !== undefined) return val.toString().length === 4
       return false
     })
-    .test('max', 'O ano deve ser menor que o ano atual', (val) => {
+    .test('max', 'O ano deve ser menor ou igual ao ano atual', (val) => {
       if (val !== undefined) return val <= new Date().getFullYear()
       return false
     }),
