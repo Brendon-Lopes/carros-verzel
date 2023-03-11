@@ -1,4 +1,5 @@
 import { api } from '../providers/api'
+import { type ICreateCarFormData } from '../validations/create-car.validation'
 
 interface IOptions {
   name?: string
@@ -26,5 +27,30 @@ export const getAllCars = async ({
     return data
   } catch (err) {
     console.log(err)
+  }
+}
+
+export const createCar = async (car: ICreateCarFormData, token: string) => {
+  const payload = {
+    name: car.name,
+    model: car.model,
+    year: car.year,
+    brandId: car.brand,
+    price: car.price,
+    imageUrl: car.imageUrl,
+  }
+
+  console.log({ payload })
+
+  try {
+    const { data } = await api.post('/cars', payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return data
+  } catch (err) {
+    return false
   }
 }
