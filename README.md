@@ -6,9 +6,11 @@ Sistema de catálogo de carros a venda. Com o login administrativo é possível 
 
 # Principais tecnologias utilizadas
 
-<strong>Backend:</strong> C#, ASP.NET Core 6.0, Entity Framework Core 6.0, BCrypt, Fluent Validation, SQL Server, Docker.
+<strong>Backend:</strong> C#, ASP.NET Core 6.0, Entity Framework Core 6.0, BCrypt, Fluent Validation, Docker.
 
 <strong>Frontend:</strong> React + Vite + TypeScript, Tailwind CSS, Axios, React-cookie, React-router-dom, Yup, Docker.
+
+<strong>Banco de dados:</strong> SQL Server. (Dockerizado para facilitar a execução do projeto).
 
 # Como executar o projeto
 
