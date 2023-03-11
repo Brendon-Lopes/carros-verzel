@@ -26,6 +26,16 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateBrandValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateCarValidation>();
 builder.Services.AddValidatorsFromAssemblyContaining<UpdateCarValidation>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 // Dependency Injection
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBrandRepository, BrandRepository>();
@@ -91,6 +101,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
